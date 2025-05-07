@@ -55,7 +55,7 @@ $roleId = Auth::user()->roles->first()->id ?? null;
                                 <a href="{{ route('admin.users.index') }}?role=3"
                                     class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
                                     <i class="fa-fw fas fa-user nav-icon"></i>
-                                    Teachers
+                                    Lecturers
                                 </a>
                             </li>
                             <li class="nav-item">
