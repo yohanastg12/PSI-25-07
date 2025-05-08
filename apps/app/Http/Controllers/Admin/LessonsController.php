@@ -54,6 +54,7 @@ class LessonsController extends Controller
             'teacher_id' => 'required',
             'room_id' => 'required',
             'year' => 'required',
+            'semester' => 'required', // Validasi semester
         ]);
 
         // Cek apakah teacher sudah terjadwal di sesi dan hari yang sama
@@ -61,6 +62,7 @@ class LessonsController extends Controller
             ->where('session_id', $request->session_id)
             ->where('weekday_id', $request->weekday_id)
             ->where('year', $request->year)
+            ->where('semester', $request->semester) // Pastikan semester juga diperiksa
             ->whereNull("deleted_at")
             ->exists();
 
@@ -73,6 +75,7 @@ class LessonsController extends Controller
             ->where('session_id', $request->session_id)
             ->where('weekday_id', $request->weekday_id)
             ->where('year', $request->year)
+            ->where('semester', $request->semester) // Pastikan semester juga diperiksa
             ->whereNull("deleted_at")
             ->exists();
 
@@ -90,6 +93,7 @@ class LessonsController extends Controller
             'session_id' => $request->session_id,
             'room_id' => $request->room_id,
             'year' => $request->year,
+            'semester' => $request->semester, // Simpan semester
         ]);
 
         return redirect()->route('admin.calendar.index')->with('success', 'Lesson added successfully.');

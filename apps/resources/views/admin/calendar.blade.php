@@ -72,6 +72,20 @@
                                     class="help-block text-sm text-gray-500">{{ trans('cruds.lesson.fields.year_helper') }}</span>
                             </div>
 
+                            {{-- Semester Filter --}}
+                            <div>
+                                <label for="semesterSelect" class="block text-gray-700 font-bold mb-2">Filter by Semester</label>
+                                <select name="semester" id="semesterSelect"
+                                class="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 shadow-sm">
+                                <option value="" {{ request('semester') == '' ? 'selected' : '' }}>-- All Semester --</option>
+                                <option value="ganjil" {{ request('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                <option value="genap" {{ request('semester') == 'genap' ? 'selected' : '' }}>Genap</option>
+                            </select>
+                                <span
+                                    class="help-block text-sm text-gray-500">{{ trans('cruds.lesson.fields.semester_helper') }}
+                                </span>
+                            </div>
+
                             <div class="flex items-end">
                                 <button type="submit"
                                     class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
@@ -121,6 +135,7 @@
                                                                     data-room="{{ $lesson->room_name }}"
                                                                     data-program="{{ $lesson->study_program_name }}"
                                                                     data-year="{{ $lesson->year }}"
+                                                                    data-semester="{{ $lesson->semester }}"
                                                                     data-teacher="{{ $lesson->teacher_name }}">
                                                                     {{ $lesson->class_name }} - {{ $lesson->course_name }}
                                                                     - {{ $lesson->room_name }}
@@ -161,6 +176,10 @@
                                 <div class="row mb-2">
                                     <div class="col-4 font-weight-bold">Tahun</div>
                                     <div class="col-8" id="detailYear"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Semester</div>
+                                    <div class="col-8" id="detailSemester"></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-4 font-weight-bold">Kelas</div>
@@ -244,8 +263,22 @@
                                                     </div>
                                                 @endif
                                                 <span
-                                                    class="help-block">{{ trans('cruds.lesson.fields.year_helper') }}</span>
+                                                    class="help-block">{{ trans('cruds.lesson.fields.semester_helper') }}</span>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="required" for="semester">{{ trans('cruds.lesson.fields.semester') }}</label>
+                                                <select name="semester" id="semester" class="form-control {{ $errors->has('semester') ? 'is-invalid' : '' }}">
+                                                    <option value="ganjil" {{ old('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                                    <option value="genap" {{ old('semester') == 'genap' ? 'selected' : '' }}>Genap</option>
+                                                </select>
+                                                @if ($errors->has('semester'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('semester') }}
+                                                    </div>
+                                                @endif
+                                                <span class="help-block">{{ trans('cruds.lesson.fields.semester_helper') }}</span>
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <label class="required"
                                                     for="class_id">{{ trans('cruds.lesson.fields.class') }}</label>
@@ -423,6 +456,7 @@
                     const id = $(this).data('id');
                     const program = $(this).data('program');
                     const year = $(this).data('year');
+                    const semester = $(this).data('semester');
                     const className = $(this).data('class');
                     const course = $(this).data('course');
                     const room = $(this).data('room');
@@ -430,6 +464,7 @@
 
                     $('#detailProgram').text(program);
                     $('#detailYear').text(year);
+                    $('#detailSemester').text($(this).data('semester'));
                     $('#detailClass').text(className);
                     $('#detailCourse').text(course);
                     $('#detailRoom').text(room);

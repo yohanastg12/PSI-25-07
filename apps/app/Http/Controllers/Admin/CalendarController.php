@@ -44,6 +44,7 @@ class CalendarController extends Controller
 
         $studyProgramIdRequest = $request->input('study_program_id');
         $yearRequest = $request->input('year');
+        $semesterRequest = $request->input('semester');
 
         if ($studyProgramIdRequest) {
             $lessonsQuery->where('lessons.study_program_id', $studyProgramIdRequest);
@@ -51,6 +52,10 @@ class CalendarController extends Controller
 
         if ($yearRequest) {
             $lessonsQuery->where('lessons.year', $yearRequest);
+        }
+
+        if ($semesterRequest = $request->input('semester')) {
+            $lessonsQuery->where('lessons.semester', $semesterRequest);
         }
 
         $lessons = $lessonsQuery->get();
@@ -71,6 +76,15 @@ class CalendarController extends Controller
             ->pluck('year')
             ->toArray();
 
+        //semester
+        $semesters = DB::table('lessons')
+            ->whereNull('deleted_at')
+            ->selectRaw('DISTINCT semester')
+            ->orderBy('semester', 'desc')
+            ->pluck('semester')
+            ->toArray();
+        
+
         $weekdays = Weekday::orderBy('id')->pluck('name', 'id')->toArray();
 
         $studyPrograms = StudyProgram::pluck('name', 'id');
@@ -85,7 +99,7 @@ class CalendarController extends Controller
             $calendar[$sessionId][$weekdayId][] = $lesson;
         }
 
-        return view('admin.calendar', compact('classes', 'teachers', 'lessons', 'sessions', 'courses', 'weekdays', 'studyPrograms', 'calendar', 'years', 'rooms'));
+        return view('admin.calendar', compact('classes', 'teachers', 'lessons', 'sessions', 'courses', 'weekdays', 'studyPrograms', 'calendar', 'years','semesters', 'rooms'));
     }
 
     public function clearLessons()

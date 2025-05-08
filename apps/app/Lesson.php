@@ -26,7 +26,8 @@ class Lesson extends Model
         'course_id',
         'session_id',
         'room_id',
-        'year'
+        'year',
+        'semester',
     ];
 
     // Relasi ke session
