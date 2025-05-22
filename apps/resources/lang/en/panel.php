@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'delSchedule',
+    'site_title' => 'DelSchedule',
 ];

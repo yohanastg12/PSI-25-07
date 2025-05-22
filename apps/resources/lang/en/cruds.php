@@ -75,6 +75,8 @@ return [
             'id_helper' => '',
             'teacher' => 'Lecturer',
             'teacher_helper' => '',
+            'teaching_assistant' => 'Teaching Assistant',
+            'teaching_assistant_helper' => '',
             'weekday' => 'Weekday',
             'weekday_helper' => '',
             'course' => 'Course',

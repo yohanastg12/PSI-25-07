@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudyProgram extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public $table = 'study_program';
 
@@ -19,8 +19,7 @@ class StudyProgram extends Model
 
     protected $fillable = [
         'name',
-        'end_time'
-    ];
+    ]; 
 
     public function lessons()
     {

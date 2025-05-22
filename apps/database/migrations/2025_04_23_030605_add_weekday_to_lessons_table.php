@@ -10,14 +10,14 @@ class AddWeekdayToLessonsTable extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->unsignedTinyInteger('weekday')->after('teacher_id');
+            $table->unsignedTinyInteger('weekday_id');
         });
     }
     
-    public function down()
-    {
-        Schema::table('lessons', function (Blueprint $table) {
-            $table->dropColumn('weekday');
-        });
-    }
+    // public function down()
+    // {
+    //     Schema::table('lessons', function (Blueprint $table) {
+    //         $table->dropColumn('weekday');
+    //     });
+    // }
     }

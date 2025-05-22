@@ -54,7 +54,6 @@ class LessonsController extends Controller
             'teacher_id' => 'required',
             'room_id' => 'required',
             'year' => 'required',
-            'semester' => 'required', // Validasi semester
         ]);
 
         // Cek apakah teacher sudah terjadwal di sesi dan hari yang sama
@@ -62,7 +61,6 @@ class LessonsController extends Controller
             ->where('session_id', $request->session_id)
             ->where('weekday_id', $request->weekday_id)
             ->where('year', $request->year)
-            ->where('semester', $request->semester) // Pastikan semester juga diperiksa
             ->whereNull("deleted_at")
             ->exists();
 
@@ -75,7 +73,6 @@ class LessonsController extends Controller
             ->where('session_id', $request->session_id)
             ->where('weekday_id', $request->weekday_id)
             ->where('year', $request->year)
-            ->where('semester', $request->semester) // Pastikan semester juga diperiksa
             ->whereNull("deleted_at")
             ->exists();
 
@@ -89,11 +86,11 @@ class LessonsController extends Controller
             'study_program_id' => $request->study_program_id,
             'class_id' => $request->class_id,
             'teacher_id' => $request->teacher_id,
+            'teaching_assistant_id' => $request->teaching_assistant_id,
             'course_id' => $request->course_id,
             'session_id' => $request->session_id,
             'room_id' => $request->room_id,
             'year' => $request->year,
-            'semester' => $request->semester, // Simpan semester
         ]);
 
         return redirect()->route('admin.calendar.index')->with('success', 'Lesson added successfully.');
@@ -162,7 +159,7 @@ class LessonsController extends Controller
 
     public function getLessons()
     {
-        $lessons = Lesson::with(['class', 'teacher'])->get()->map(function ($lesson) {
+        $lessons = Lesson::with(['class', 'teacher', 'teachingAssistants'])->get()->map(function ($lesson) {
             $sessions = [
                 '1' => ['start' => '08:00', 'end' => '08:50'],
                 '2' => ['start' => '09:00', 'end' => '09:50'],
@@ -183,6 +180,7 @@ class LessonsController extends Controller
                 'weekday' => $lesson->weekday,
                 'class' => $lesson->class->name ?? '-',
                 'teacher' => $lesson->teacher->name ?? '-',
+                'asistant' => $lesson->teachingAssistants->pluck('name')->toArray(),
                 'start_session' => $session['start'],
                 'end_session' => $session['end'],
             ];

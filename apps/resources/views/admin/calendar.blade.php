@@ -86,6 +86,23 @@
                                 </span>
                             </div>
 
+                            {{-- Class Filter --}}
+                            <div>
+                                <label for="classSelect" class="block text-gray-700 font-bold mb-2">Filter by Class</label>
+                                <select name="class_id" id="classSelect"
+                                    class="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 shadow-sm">
+                                    <option value="">-- All Classes --</option>
+                                    @foreach ($classes as $id => $class)
+                                        <option value="{{ $id }}"
+                                            {{ request('class_id') == $id ? 'selected' : '' }}>
+                                            {{ $class }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block text-sm text-gray-500">{{ trans('cruds.lesson.fields.class_helper') }}
+                                </span>
+                            </div>
+                            
                             <div class="flex items-end">
                                 <button type="submit"
                                     class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
@@ -263,7 +280,7 @@
                                                     </div>
                                                 @endif
                                                 <span
-                                                    class="help-block">{{ trans('cruds.lesson.fields.semester_helper') }}</span>
+                                                    class="help-block">{{ trans('cruds.lesson.fields.year_helper') }}</span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="required" for="semester">{{ trans('cruds.lesson.fields.semester') }}</label>

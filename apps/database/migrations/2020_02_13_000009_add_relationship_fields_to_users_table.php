@@ -13,4 +13,11 @@ class AddRelationshipFieldsToUsersTable extends Migration
             $table->foreign('class_id', 'class_fk_1001550')->references('id')->on('school_classes');
         });
     }
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('class_fk_1001550');
+            $table->dropColumn('class_id');
+        });
+    }
 }

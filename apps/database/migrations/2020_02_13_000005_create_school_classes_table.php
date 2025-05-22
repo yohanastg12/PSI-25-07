@@ -14,5 +14,10 @@ class CreateSchoolClassesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-    }
+    } 
+
+    // public function down()
+    // {
+    //     Schema::dropIfExists('school_classes');
+    // }
 }

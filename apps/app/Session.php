@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use App\Lesson;
 
 class Session extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public $table = 'sessions';
 

@@ -15,4 +15,5 @@ class CreateRolesTable extends Migration
             $table->softDeletes();
         });
     }
+
 }

@@ -23,6 +23,7 @@ class Lesson extends Model
         'class_id',
         'study_program_id',
         'teacher_id',
+        'teaching_assistant_id',
         'course_id',
         'session_id',
         'room_id',
@@ -59,6 +60,11 @@ class Lesson extends Model
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    public function teachingAssistant()
+    {
+        return $this->belongsTo(User::class, 'teaching_assistant_id');
     }
 
     public function room()

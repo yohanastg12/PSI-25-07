@@ -14,7 +14,7 @@ Route::redirect('/', '/login');
 
 // Redirect setelah login
 Route::get('/home', function () {
-    $user = auth()->user();
+    $user = auth()->user(); //buat home ke tiap user sesuai dengan role nya
     $routeName = $user && ($user->is_student || $user->is_teacher)
         ? 'admin.calendar.index'
         : ($user->is_baa ? 'baa.dashboard' : 'admin.home');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public $table = 'course';
 
@@ -18,7 +18,8 @@ class Course extends Model
     ];
 
     protected $fillable = [
-        'name'
+        'name',
+        'SKS'
     ];
 
     public function lessons()

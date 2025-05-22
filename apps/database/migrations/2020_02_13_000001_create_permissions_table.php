@@ -15,4 +15,5 @@ class CreatePermissionsTable extends Migration
             $table->softDeletes();
         });
     }
+
 }
